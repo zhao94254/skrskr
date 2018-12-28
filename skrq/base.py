@@ -11,6 +11,9 @@ class Connection(object):
     提供一层接口，支持多个transport
     """
 
+    def __init__(self, uri):
+        self.uri = uri
+
     def parse_uri(self):
         pass
 
@@ -21,11 +24,27 @@ class Connection(object):
         pass
 
 
-class Transport(object):
+class Channel(object):
     """
-    transport 抽象
+    这里处理 Exchange - Queue 之间的逻辑
     """
-    pass
 
+    def get(self):
+        pass
 
+    def put(self):
+        pass
 
+    def ack(self):
+        pass
+
+class Queue(object):
+
+    def get(self):
+        pass
+
+    def put(self):
+        pass
+
+    def delmsg(self):
+        pass
