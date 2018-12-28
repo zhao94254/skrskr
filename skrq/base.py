@@ -38,6 +38,21 @@ class Channel(object):
     def ack(self):
         pass
 
+
+class Exchange(object):
+    """
+    交换机实现
+    """
+    def direct_ex(self):
+        pass
+
+    def topic_ex(self):
+        pass
+
+    def fanout_ex(self):
+        pass
+
+
 class Queue(object):
 
     def get(self):
@@ -48,3 +63,5 @@ class Queue(object):
 
     def delmsg(self):
         pass
+
+
