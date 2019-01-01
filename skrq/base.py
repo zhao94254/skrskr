@@ -55,6 +55,9 @@ class Exchange(object):
 
 class Queue(object):
 
+    def __init__(self, name):
+        self.name = name
+
     def get(self):
         pass
 
