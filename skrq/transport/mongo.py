@@ -17,3 +17,10 @@ class MongoChannel(Channel):
 
     def put(self):
         pass
+
+    def init_ex(self):
+        db = 'skrskr'
+        table = '{appname}_message'.format(appname=self.appname)
+        for exs in self.exchanges:
+            data = [{'exchange': exs.exname,'queue':d.name } for d in exs.queues]
+            self.conn[db][table].insert(data)

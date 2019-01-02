@@ -29,6 +29,11 @@ class Channel(object):
     这里处理 Exchange - Queue 之间的逻辑
     """
 
+    def __init__(self, appname, exchanges, conn):
+        self.appname = appname
+        self.exchanges = exchanges
+        self.conn = conn
+
     def get(self):
         pass
 
@@ -38,12 +43,23 @@ class Channel(object):
     def ack(self):
         pass
 
+    def init_ex(self):
+        pass
 
 class Exchange(object):
     """
     交换机实现
     Exchange -> Queue(多个)
     """
+
+    def __init__(self, name, etype, queues):
+        self.exname = name
+        self.etype = etype
+        self.queues = queues
+
+    def add_queue(self, queues):
+        pass
+
     def direct_ex(self):
         pass
 
@@ -56,9 +72,8 @@ class Exchange(object):
 
 class Queue(object):
 
-    def __init__(self, name, exchange):
+    def __init__(self, name):
         self.name = name
-        self.exchange = exchange
 
     def get(self):
         pass
