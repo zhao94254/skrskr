@@ -6,19 +6,31 @@
 
 # 这里主要写Connection & Transport 的抽象
 
+import pymongo
+
 class Connection(object):
     """
     提供一层接口，支持多个transport
     """
 
-    def __init__(self, uri):
+    def __init__(self, uri, appname, exs):
+
         self.uri = uri
+        self.appname = appname
+        self.exs = exs
 
     def parse_uri(self):
-        pass
+        mtype = self.uri.split('://')[0]
+        return self.dispatch(mtype)
+
+    def dispatch(self, mtype):
+        from skrq.transport.mongo import MongoChannel
+
+        if mtype == 'mongodb':
+            return MongoChannel(self.appname,self.exs ,self.uri)
 
     def __enter__(self):
-        pass
+        return self.parse_uri()
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass
@@ -29,15 +41,16 @@ class Channel(object):
     这里处理 Exchange - Queue 之间的逻辑
     """
 
-    def __init__(self, appname, exchanges, conn):
+    def __init__(self, appname, exchanges, uri):
         self.appname = appname
         self.exchanges = exchanges
-        self.conn = conn
+        self.uri = uri
+        self.init_ex()
 
-    def get(self):
+    def get(self, qname):
         pass
 
-    def put(self):
+    def put(self, qname, msg, **kwargs):
         pass
 
     def ack(self):
@@ -85,3 +98,10 @@ class Queue(object):
         pass
 
 
+if __name__ == '__main__':
+    q1 = Queue(name='qqq')
+    q2 = Queue(name='qq2')
+    ex = Exchange('ex', 'direct', [q1, q2])
+
+    with Connection('mongodb://127.0.0.1:27017', 'skrskr', [ex]) as chan:
+        chan.put('qqq', {'test':'ttestt'})
