@@ -42,6 +42,7 @@ class Channel(object):
 class Exchange(object):
     """
     交换机实现
+    Exchange -> Queue(多个)
     """
     def direct_ex(self):
         pass
@@ -55,8 +56,9 @@ class Exchange(object):
 
 class Queue(object):
 
-    def __init__(self, name):
+    def __init__(self, name, exchange):
         self.name = name
+        self.exchange = exchange
 
     def get(self):
         pass

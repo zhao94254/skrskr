@@ -4,10 +4,12 @@
 # @Author  : zpy
 # @Software: PyCharm
 
-from skrq.base import Queue
+from skrq.base import Channel
 
+# 应该是在channel 这一层做mongo redis 等。。
+#
 
-class MongoQueue(Queue):
+class MongoChannel(Channel):
 
 
     def get(self):
