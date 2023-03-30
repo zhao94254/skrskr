@@ -11,3 +11,6 @@ class Publisher(object):
 
 class Consumer(object):
     pass
+    
+def xc():
+    pass
